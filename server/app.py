@@ -36,6 +36,10 @@ class Heroes(Resource):
             heroes.append(hero_dict)
         return make_response(jsonify(heroes), 200)
 
+api.add_resource(Heroes, '/heroes')
+
+
+
 class HeroesId(Resource):
     
     def get(self, id):
@@ -60,7 +64,11 @@ class HeroesId(Resource):
             return make_response(jsonify(hero_dict), 200)
         else:
             return make_response(jsonify({"error": "Hero not found"}), 404)
+
+api.add_resource(HeroesId, '/heroes/<int:id>')
         
+
+
 class Powers(Resource):
     
     def get(self):
@@ -74,6 +82,10 @@ class Powers(Resource):
             }
             powers.append(power_dict)
         return make_response(jsonify(powers), 200)
+
+api.add_resource(Powers, '/powers')
+
+
     
 class PowersId(Resource):
     
@@ -113,7 +125,11 @@ class PowersId(Resource):
         except ValueError as e:
             return make_response({"error": e.args}, 400)
 
-class HeroPowers(Resource):
+api.add_resource(PowersId, '/powers/<int:id>')
+
+
+
+class HeroPowersResource(Resource):
     
     def post(self):
         data = request.get_json()
@@ -130,13 +146,8 @@ class HeroPowers(Resource):
         else:
             return make_response(jsonify({"errors": ["validation errors"]}), 404)
 
+api.add_resource(HeroPowersResource, '/hero_powers')
 
-
-api.add_resource(Heroes, '/heroes')
-api.add_resource(HeroesId, '/heroes/<int:id>')
-api.add_resource(Powers, '/powers')
-api.add_resource(PowersId, '/powers/<int:id>')
-api.add_resource(HeroPowers, '/hero_powers')
 
 
 if __name__ == '__main__':
