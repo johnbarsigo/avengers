@@ -6,9 +6,10 @@ from models import db, Hero, Power, HeroPower
 if __name__ == '__main__':
     with app.app_context():
         print("Clearing db...")
+        HeroPower.query.delete()
         Power.query.delete()
         Hero.query.delete()
-        HeroPower.query.delete()
+        
 
         print("Seeding powers...")
         powers = [
